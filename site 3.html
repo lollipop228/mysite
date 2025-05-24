@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Егор Лапихин | IT-безопасность</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 60px 0 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+            opacity: 0.3;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0 0 15px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 20px;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 40px 0 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tabs li {
+            margin: 0;
+        }
+        
+        .tabs a {
+            display: block;
+            padding: 12px 25px;
+            text-decoration: none;
+            color: var(--dark);
+            background: white;
+            border: none;
+            border-radius: 50px;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .tabs a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .tabs a.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .resume-section {
+            margin-bottom: 25px;
+        }
+        
+        .resume-section h3 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .resume-section p, .resume-section ul {
+            margin: 0 0 10px 20px;
+        }
+        
+        .resume-section ul {
+            padding-left: 20px;
+        }
+        
+        .resume-section li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .resume-section li::before {
+            content: '•';
+            color: var(--accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .bio-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .bio-paragraph {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .hobby-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .hobby-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            border-top: 3px solid var(--primary);
+        }
+        
+        .hobby-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .hobby-card h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hobby-card h3::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            background: var(--secondary);
+            color: white;
+            margin-top: 60px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Стили для главной страницы */
+        .welcome-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .welcome-section h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .welcome-section p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            transition: var(--transition);
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .feature-card h3 {
+            color: var(--secondary);
+            margin: 15px 0;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tabs {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .tab-content {
+                padding: 20px 15px;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .hobby-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Анимация при загрузке */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Егор Лапихин</h1>
+            <p>Специалист по IT-безопасности с опытом защиты цифровых активов</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <ul class="tabs">
+            <li><a href="#home" class="active">Главная</a></li>
+            <li><a href="#resume">Резюме</a></li>
+            <li><a href="#bio">Биография</a></li>
+            <li><a href="#gallery">Галерея</a></li>
+            <li><a href="#hobby">Хобби</a></li>
+        </ul>
+        
+        <div id="home" class="tab-content active">
+            <div class="welcome-section">
+                <h2>Привет, это мой сайт портфолио!</h2>
+                <p>Здесь вы найдете информацию о моем профессиональном опыте, навыках и увлечениях. Я специализируюсь на IT-безопасности и помогаю компаниям защищать их цифровые активы от современных угроз.</p>
+                
+                <div class="features">
+                    <div class="feature-card">
+                        <h3>Опыт</h3>
+                        <p>Более 5 лет работы в сфере кибербезопасности</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Навыки</h3>
+                        <p>Широкий спектр технических и аналитических компетенций</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Подход</h3>
+                        <p>Индивидуальный подход к каждому проекту и клиенту</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="resume" class="tab-content">
+            <div class="resume-section">
+                <h3>Профессиональный профиль</h3>
+                <p>Опытный специалист по кибербезопасности с 5-летним стажем, специализирующийся на защите данных, анализе уязвимостей и разработке стратегий безопасности.</p>
+            </div>
+            
+            <div class="resume-section">
+                <h3>Опыт работы</h3>
+                <ul>
+                    <li><strong>Ведущий специалист по безопасности</strong> - ООО "КиберПротектор" (2023-настоящее время)</li>
+                    <li><strong>Аналитик безопасности</strong> - ПАО "Технобанк" (2020-2023)</li>
+                    <li><strong>Стажёр отдела IT-безопасности</strong> - РосТех (2019-2020)</li>
+                </ul>
+            </div>
+            
+            <div class="resume-section">
+                <h3>Образование</h3>
+                <ul>
+                    <li><strong>ВятГУ</strong> - Кибербезопасность (2024-2028)</li>
+                    <li><strong>Сертификаты:</strong> CISSP, CEH, CompTIA Security+</li>
+                </ul>
+            </div>
+            
+            <div class="resume-section">
+                <h3>Навыки</h3>
+                <ul>
+                    <li>Анализ и оценка рисков</li>
+                    <li>Пентестинг и этичный хакинг</li>
+                    <li>Защита сетевой инфраструктуры</li>
+                    <li>Криптография и PKI</li>
+                    <li>Соответствие требованиям GDPR и ФЗ-152</li>
+                </ul>
+            </div>
+            
+            <div class="resume-section">
+                <h3>Контакты</h3>
+                <p>Email: egor.lapikhin@example.com</p>
+                <p>Телефон: +7 (909) 228-14-88</p>
+                <p>LinkedIn: linkedin.com/in/egorlapikhin</p>
+            </div>
+        </div>
+        
+        <div id="bio" class="tab-content">
+            <h2>Моя история</h2>
+            
+            <div class="bio-content">
+                <div class="bio-paragraph">
+                    <h3>Ранние годы</h3>
+                    <p>С детства проявлял интерес к технологиям и механизмам, разбирая и собирая различные устройства.</p>
+                </div>
+                
+                <div class="bio-paragraph">
+                    <h3>Школьные годы</h3>
+                    <p>В школе увлекся программированием и компьютерными системами. Участвовал в олимпиадах по информатике, где неоднократно занимал призовые места.</p>
+                </div>
+                
+                <div class="bio-paragraph">
+                    <h3>Профессиональное становление</h3>
+                    <p>После окончания университета начал карьеру в сфере IT-безопасности, пройдя путь от стажёра до ведущего специалиста. Моя страсть к защите данных и систем помогла мне вырасти профессионально.</p>
+                </div>
+                
+                <div class="bio-paragraph">
+                    <h3>Философия</h3>
+                    <p>Верю, что безопасность - это не продукт, а процесс. Постоянное обучение и адаптация к новым угрозам - ключ к успеху в этой области.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="gallery" class="tab-content">
+            <h2>Мои работы и увлечения</h2>
+            <p>Фотографии с конференций, проектов и личной жизни</p>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://sun9-80.userapi.com/impf/c626116/v626116567/40fee/0trbE4m86kI.jpg?size=399x549&quality=96&sign=268c58051ccec712e188f1450472b475&type=album" alt="На конференции по безопасности">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://sun9-76.userapi.com/impg/qz7DpTFb5DymESLQQLRkLiq4E6G5eB18n4nMng/RXXjCvIKLxA.jpg?size=807x807&quality=96&sign=7e2e410e68bde547c645065ed305af09&type=album" alt="Рабочий процесс">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN5iwZDtfd4Gjc8fJTcIlKX6TF00v1v0D9dqTDieh7mTv0kRTcz4UVU5Sq1XUZCDBzUj4&usqp=CAU" alt="Сертификация">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf3TsGO86mDfF3P6MjalUMEvaiR0if3kUt943Fu1qPQwGTr745-bHsX6s2tG-Yu_cvWUk&usqp=CAU" alt="Командная работа">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1iwxIoRkhl459Z_vgGgmpRoeqNNifG7K9da6xFn7JFDrheQjJuvafS95U4XtPZpxD1ls&usqp=CAU" alt="Хобби">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/bb/b7/a8/bbb7a896-060f-5654-71cf-a1c26587a4b1/cover.jpg/1200x630bb.jpg" alt="Отдых">
+                </div>
+            </div>
+        </div>
+        
+        <div id="hobby" class="tab-content">
+            <h2>Мои увлечения</h2>
+            <p>То, что вдохновляет меня вне работы</p>
+            
+            <div class="hobby-grid">
+                <div class="hobby-card">
+                    <h3>ММА</h3>
+                    <p>Занимаюсь смешанными единоборствами более 5 лет. Это не только физическая подготовка, но и дисциплина, которая помогает в профессиональной жизни.</p>
+                </div>
+                
+                <div class="hobby-card">
+                    <h3>Рисование</h3>
+                    <p>Увлекаюсь цифровым и традиционным рисованием. Особенно нравится создавать концепт-арты и скетчи в свободное время.</p>
+                </div>
+                
+                <div class="hobby-card">
+                    <h3>Киберспорт</h3>
+                    <p>Участвую в турнирах по киберспортивным дисциплинам. Это помогает оставаться в курсе современных технологий и развивать стратегическое мышление.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#" aria-label="VKontakte">VK</a>
+                <a href="#" aria-label="Telegram">TG</a>
+                <a href="#" aria-label="GitHub">GH</a>
+                <a href="#" aria-label="LinkedIn">IN</a>
+            </div>
+            <p>&copy; 2023 Егор Лапихин. Все права защищены.</p>
+            <p>Сайт разработан с ❤️ и вниманием к деталям</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tabs a');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Удаляем активный класс у всех вкладок и контента
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Добавляем активный класс текущей вкладке
+                    this.classList.add('active');
+                    
+                    // Показываем соответствующий контент
+                    const target = this.getAttribute('href');
+                    document.querySelector(target).classList.add('active');
+                });
+            });
+            
+            // Анимация элементов при прокрутке
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.gallery-item, .hobby-card, .bio-paragraph, .feature-card');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Инициализация анимации
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Запускаем при загрузке
+            
+            // Добавляем плавное появление элементов
+            document.querySelectorAll('.gallery-item, .hobby-card, .bio-paragraph, .feature-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+        });
+    </script>
+</body>
+</html>
